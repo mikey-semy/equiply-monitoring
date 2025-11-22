@@ -57,6 +57,12 @@ services:
       - ./monitoring/grafana:/etc/grafana/provisioning
     networks:
       - dokploy-network
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=dokploy-network
+      - traefik.http.routers.equiply-monitoring-grafana.rule=Host(`equiply-monitoring-szxojv-5e9209-62-60-246-35.traefik.me`)
+      - traefik.http.routers.equiply-monitoring-grafana.entrypoints=web
+      - traefik.http.services.equiply-monitoring-grafana.loadbalancer.server.port=3000
 
   prometheus:
     image: prom/prometheus:latest
@@ -74,6 +80,12 @@ services:
       - dokploy-network
     depends_on:
       - grafana
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=dokploy-network
+      - traefik.http.routers.equiply-monitoring-prometheus.rule=Host(`equiply-monitoring-szxojv-6076f5-62-60-246-35.traefik.me`)
+      - traefik.http.routers.equiply-monitoring-prometheus.entrypoints=web
+      - traefik.http.services.equiply-monitoring-prometheus.loadbalancer.server.port=9090
 
 networks:
   dokploy-network:
