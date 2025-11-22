@@ -60,9 +60,10 @@ services:
     labels:
       - traefik.enable=true
       - traefik.docker.network=dokploy-network
-      - traefik.http.routers.equiply-monitoring-grafana.rule=Host(`equiply-monitoring-szxojv-5e9209-62-60-246-35.traefik.me`)
-      - traefik.http.routers.equiply-monitoring-grafana.entrypoints=web
-      - traefik.http.services.equiply-monitoring-grafana.loadbalancer.server.port=3000
+      - traefik.http.routers.monitoring-grafana.rule=Host(`equiply-monitoring-szxojv-5e9209-62-60-246-35.traefik.me`)
+      - traefik.http.routers.monitoring-grafana.entrypoints=web
+      - traefik.http.routers.monitoring-grafana.service=monitoring-grafana-svc
+      - traefik.http.services.monitoring-grafana-svc.loadbalancer.server.port=3000
 
   prometheus:
     image: prom/prometheus:latest
@@ -83,9 +84,10 @@ services:
     labels:
       - traefik.enable=true
       - traefik.docker.network=dokploy-network
-      - traefik.http.routers.equiply-monitoring-prometheus.rule=Host(`equiply-monitoring-szxojv-6076f5-62-60-246-35.traefik.me`)
-      - traefik.http.routers.equiply-monitoring-prometheus.entrypoints=web
-      - traefik.http.services.equiply-monitoring-prometheus.loadbalancer.server.port=9090
+      - traefik.http.routers.monitoring-prometheus.rule=Host(`equiply-monitoring-szxojv-6076f5-62-60-246-35.traefik.me`)
+      - traefik.http.routers.monitoring-prometheus.entrypoints=web
+      - traefik.http.routers.monitoring-prometheus.service=monitoring-prometheus-svc
+      - traefik.http.services.monitoring-prometheus-svc.loadbalancer.server.port=9090
 
 networks:
   dokploy-network:
